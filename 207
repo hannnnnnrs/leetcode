@@ -1,0 +1,36 @@
+https://leetcode.cn/problems/course-schedule/
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> record=new ArrayList<>();
+        for(int i=0;i<numCourses;i++){
+            record.add(new ArrayList<>());
+        }
+        Set<Integer> finish=new HashSet<>();
+        for(int i=0;i<prerequisites.length;i++){
+            record.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+        for(int i=0;i<record.size();i++){
+            if(record.get(i).size()==0)
+                finish.add(i);
+        }
+        int change=1;
+        while(change==1){
+            change=0;
+            for(int i=0;i<record.size();i++){
+            int tmp=0;
+            if(!finish.contains(i)){
+                for(int j=0;j<record.get(i).size();j++){
+                    if(!finish.contains(record.get(i).get(j)))
+                        tmp=1;
+                }
+                if(tmp==0) {
+                    finish.add(i);
+                    change=1;
+                }
+            }
+            }
+        }
+        if(finish.size()==numCourses) return true;
+        else return false;
+    }
+}
