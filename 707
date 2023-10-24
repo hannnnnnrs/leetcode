@@ -1,0 +1,79 @@
+https://leetcode.cn/problems/design-linked-list/
+class MyLinkedList {
+    ListNode head;
+    int length;
+    public MyLinkedList() {
+        head=new ListNode(0);
+        length=0;
+    }
+    
+    public int get(int index) {
+        ListNode tmp=head.next;
+        if(index<length){
+            for(int i=0;i<index;i++)
+                tmp=tmp.next;
+            return tmp.val;
+        }else return -1;
+    }
+    
+    public void addAtHead(int val) {
+        ListNode tmp=head.next;
+        head.next=new ListNode(val);
+        head.next.next=tmp;
+        length++;
+    }
+    
+    public void addAtTail(int val) {
+        ListNode tmp=head;
+        while(tmp.next!=null)
+            tmp=tmp.next;
+        tmp.next=new ListNode(val);
+        length++;
+    }
+    
+    public void addAtIndex(int index, int val) {
+        if(index<=length){
+            ListNode tmp=head;
+            for(int i=0;i<index;i++)
+                tmp=tmp.next;
+            ListNode curl=tmp.next;
+            tmp.next=new ListNode(val);
+            tmp.next.next=curl;
+            length++;
+        } 
+    }
+    
+    public void deleteAtIndex(int index) {
+        if(index>=0 && index<length){
+            ListNode tmp=head;
+            for(int i=0;i<index;i++){
+                tmp=tmp.next;
+            }
+            if(tmp.next.next==null){
+                tmp.next=null;
+            }else{
+                ListNode curl=tmp.next.next;
+                tmp.next=curl;
+            }
+            length--;
+        }
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    public ListNode(int val){
+        this.val=val;
+        next=null;
+    }
+}
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * MyLinkedList obj = new MyLinkedList();
+ * int param_1 = obj.get(index);
+ * obj.addAtHead(val);
+ * obj.addAtTail(val);
+ * obj.addAtIndex(index,val);
+ * obj.deleteAtIndex(index);
+ */
