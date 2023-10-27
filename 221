@@ -1,0 +1,31 @@
+https://leetcode.cn/problems/maximal-square/
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int index=0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]=='1'){
+                    index=Math.max(index,1);
+                    int flag=0;
+                    if(Math.min(matrix.length-i,matrix[0].length-j)<=index)
+                        break;
+                    else {
+                        while(flag==0&&Math.min(matrix.length-i,matrix[0].length-j)>index){
+                            for(int row=i;row<i+index+1;row++){
+                                for(int column=j;column<j+index+1;column++){
+                                    if(matrix[row][column]=='0'){
+                                        flag=1;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(flag==0) index++;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        return index*index;
+    }
+}
