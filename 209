@@ -1,0 +1,24 @@
+https://leetcode.cn/problems/minimum-size-subarray-sum/description/
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int sum=0;
+        int ans=nums.length+1;
+        int begin=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(sum<target){
+                continue;
+            }else{
+                ans=Math.min(ans,i-begin+1);
+                for(int j=begin;j<=i;j++){
+                    if(sum-nums[j]>=target){
+                        sum-=nums[j];
+                        begin++;
+                        ans=Math.min(ans,i-j);
+                    } else break;
+                }
+            }
+        }
+        return (ans==nums.length+1)?0:ans;
+    }
+}
