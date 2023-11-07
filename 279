@@ -1,0 +1,20 @@
+https://leetcode.cn/problems/perfect-squares/
+class Solution {
+    public int numSquares(int n) {
+        int m=(int)Math.sqrt(n);
+        int[] dp=new int[n+1];
+        for(int i=0;i<dp.length;i++)
+            dp[i]=Integer.MAX_VALUE;
+        dp[0]=0;
+        for(int i=0;i<=m;i++){
+            dp[(int)Math.pow(m,2)]=1;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=m;j>=1;j--){
+                if(i-Math.pow(j,2)>=0)
+                    dp[i]=Math.min(dp[i],dp[i-(int)Math.pow(j,2)]+1);
+            }
+        }
+        return dp[n];
+    }
+}
