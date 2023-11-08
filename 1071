@@ -1,0 +1,27 @@
+https://leetcode.cn/problems/greatest-common-divisor-of-strings/
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+        String shortstr=(str1.length()<=str2.length())?str1:str2;
+        String longstr=(str1.length()>str2.length())?str1:str2;
+        for(int i=shortstr.length();i>0;i--){
+            if(shortstr.length()%i==0&&longstr.length()%i==0){
+                String tmp=shortstr.substring(0,i);
+                int flag=0;
+                for(int j=0;j<longstr.length();j+=i){
+                    if(!tmp.equals(longstr.substring(j,j+i))){
+                        flag=1;
+                        break;
+                    }
+                }
+                for(int j=0;j<shortstr.length();j+=i){
+                    if(!tmp.equals(shortstr.substring(j,j+i))){
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==0) return tmp;
+            }
+        }
+        return "";
+    }
+}
