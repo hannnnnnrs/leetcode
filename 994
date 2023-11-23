@@ -1,0 +1,55 @@
+https://leetcode.cn/problems/rotting-oranges/description/
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int result=0;
+        int flag=1;
+        while(flag==1){
+            flag=0;
+            HashSet<int[]> set=new HashSet<>();
+            for(int i=0;i<grid.length;i++){
+                for(int j=0;j<grid[0].length;j++){
+                    if(grid[i][j]==2){
+                        if(grid[Math.max(i-1,0)][j]==1){
+                            int[] tmp=new int[2];
+                            tmp[0]=Math.max(i-1,0);
+                            tmp[1]=j;
+                            set.add(tmp);
+                        }      
+                        if(grid[Math.min(i+1,grid.length-1)][j]==1){
+                            int[] tmp=new int[2];
+                            tmp[0]=Math.min(i+1,grid.length-1);
+                            tmp[1]=j;
+                            set.add(tmp);
+                        }
+                        if(grid[i][Math.max(0,j-1)]==1){
+                            int[] tmp=new int[2];
+                            tmp[0]=i;
+                            tmp[1]=Math.max(0,j-1);
+                            set.add(tmp);
+                        }
+                        if(grid[i][Math.min(grid[0].length-1,j+1)]==1){
+                            int[] tmp=new int[2];
+                            tmp[0]=i;
+                            tmp[1]=Math.min(grid[0].length-1,j+1);
+                            set.add(tmp);
+                        }
+                    }
+                }
+            }
+            if(set.size()!=0){
+                flag=1;
+                result++;
+                for(int[] index:set){
+                    grid[index[0]][index[1]]=2;
+                }
+            }
+        }
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]==1)
+                    return -1;
+            }
+        }
+        return result;
+    }
+}
