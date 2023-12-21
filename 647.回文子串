@@ -1,0 +1,20 @@
+https://leetcode.cn/problems/palindromic-substrings/description/
+// dp[i][j]表示i到j的字符串，如果是回文串则dp[i][j]=dp[i+1][j-1]&&s.charAt(i)==s.charAt(j)
+class Solution {
+    public int countSubstrings(String s) {
+        int ans=0;
+        for(int i=0;i<s.length();i++){
+            ans+=answer(s,i,i)+answer(s,i,i+1);
+        }
+        return ans;
+    }
+    public int answer(String s,int left,int right){
+        int ans=0;
+        while(left>=0&&right<s.length()&&s.charAt(left)==s.charAt(right)){
+            ++ans;
+            left--;
+            right++;
+        }
+        return ans;
+    }
+}
