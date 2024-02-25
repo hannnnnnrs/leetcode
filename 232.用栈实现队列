@@ -1,0 +1,53 @@
+// https://leetcode.cn/problems/implement-queue-using-stacks/description/?company_slug=baidu
+class MyQueue {
+    Stack<Integer> stackA;
+    Stack<Integer> stackB;
+    public MyQueue() {
+        stackA=new Stack<>();
+        stackB=new Stack<>();
+    }
+    
+    public void push(int x) {
+        stackA.add(x);
+    }
+    
+    public int pop() {
+        while(stackA.size()>1){
+            stackB.add(stackA.pop());
+        }
+        int ans=stackA.pop();
+        stackA=new Stack<>();
+        while(!stackB.isEmpty()){
+            stackA.add(stackB.pop());
+        }
+        return ans;
+    }
+    
+    public int peek() {
+        while(stackA.size()>1){
+            stackB.add(stackA.pop());
+        }
+        int ans=stackA.pop();
+        stackB.add(ans);
+        stackA=new Stack<>();
+        while(!stackB.isEmpty()){
+            stackA.add(stackB.pop());
+        }
+        return ans;
+    }
+    
+    public boolean empty() {
+        if(stackA.isEmpty())
+            return true;
+        else return false;
+    }
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
